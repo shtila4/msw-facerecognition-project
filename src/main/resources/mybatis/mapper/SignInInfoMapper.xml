@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itboyst.facedemo.mapper.MybatisSignInInfoMapper">
+    <resultMap id="signInfo" type="com.itboyst.facedemo.domain.SignInInfo">
+        <id column="stu_num" property="stuNum" javaType="int"/>
+        <result column="face_id" property="faceId" javaType="String"/>
+        <result column="sign_time" property="signTime" javaType="java.util.Date"/>
+        <result column="today_time" property="todayTime" javaType="java.util.Date"/>
+        <result column="sign_total" property="signTotal" javaType="int"/>
+    </resultMap>
+    <update id="updateSignByFaceId">
+    update sign_in_info set sign=#{sign} ,sign_time=sysdate() ,sign_total=#{signTotal} where face_id=#{faceId}
+    </update>
+    <update id="updateSign">
+    update sign_in_info set sign=#{sign},today_time=sysdate();
+    </update>
+    <select id="selectSignInInfoByFaceId" resultMap="signInfo" resultType="com.itboyst.facedemo.domain.SignInInfo" parameterType="string">
+        select * from sign_in_info where face_id=#{faceId}
+    </select>
+    <select id="selectSignInInfo" resultMap="signInfo" resultType="com.itboyst.facedemo.domain.SignInInfo">
+        select * from sign_in_info
+    </select>
+</mapper>

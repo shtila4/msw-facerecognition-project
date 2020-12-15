@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--修改-->
+<mapper namespace="com.itboyst.facedemo.mapper.MybatisStudentFaceInfoMapper">
+    <resultMap id="userFace" type="com.itboyst.facedemo.domain.StudentFaceInfo">
+        <id column="stu_num" property="stuNum" javaType="int"/>
+        <result column="group_id" property="groupId" javaType="java.lang.Integer"/>
+        <result column="face_id" property="faceId" javaType="String"/>
+        <result column="name" property="name" javaType="String"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="update_time" property="updateTime" javaType="java.util.Date"/>
+        <result column="face_feature" property="faceFeature"/>
+    </resultMap>
+    <resultMap id="userFace2" type="com.itboyst.facedemo.dto.FaceUserInfo">
+        <id column="id" property="id" javaType="int"/>
+        <result column="group_id" property="groupId" javaType="java.lang.Integer"/>
+        <result column="face_id" property="faceId" javaType="String"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="face_feature" property="faceFeature"/>
+    </resultMap>
+
+
+
+    <insert id="insertStudentFaceInfo" parameterType="com.itboyst.facedemo.domain.StudentFaceInfo">
+            INSERT INTO student_face_info (stu_num,group_id,face_id,name,face_feature,create_time,update_time) VALUES (#{stuNum},#{groupId},#{faceId},#{name},#{faceFeature},sysdate() ,sysdate() )
+    </insert>
+
+    <select id="getStudentFaceInfoByGroupId" resultMap="userFace2" parameterType="java.lang.Integer" resultType="com.itboyst.facedemo.dto.FaceUserInfo">
+        select face_id,name,face_feature from student_face_info
+    </select>
+</mapper>
